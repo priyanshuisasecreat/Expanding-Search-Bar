@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Expanding Search Bar</title>
+    <style>
+        /* Basic styles for the body to center the search bar */
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background-color: #f0f2f5;
+            margin: 0;
+            font-family: 'Inter', sans-serif;
+        }
+
+        /* The main container for the search component */
+        .search-container {
+            position: relative;
+            height: 50px;
+        }
+
+        /* The search input field */
+        .search-input {
+            height: 50px;
+            width: 0; /* Initially hidden */
+            border-radius: 25px; /* Fully rounded corners */
+            border: none;
+            padding: 0; /* No padding initially */
+            font-size: 16px;
+            outline: none;
+            box-sizing: border-box;
+            transition: width 0.4s ease-in-out, padding-left 0.4s ease-in-out, padding-right 0.4s ease-in-out;
+            background-color: #ffffff;
+            color: #333;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        /* The search button (magnifying glass) */
+        .search-btn {
+            position: absolute;
+            top: 0;
+            right: 0;
+            height: 50px;
+            width: 50px;
+            border-radius: 50%; /* Makes it circular */
+            border: none;
+            background-color: #ffffff;
+            cursor: pointer;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            z-index: 10;
+            /* UPDATED: Added transition for background and shadow */
+            transition: background-color 0.4s ease-in-out, box-shadow 0.4s ease-in-out;
+        }
+
+        /* UPDATED: Styles for the icons inside the button */
+        .search-btn .icon {
+            position: absolute; /* Allows icons to be placed on top of each other */
+            width: 20px;
+            height: 20px;
+            fill: #333; /* Darker fill color for better contrast */
+            transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
+        }
+
+        .search-btn .icon-search {
+            opacity: 1;
+            transform: rotate(0deg);
+        }
+
+        .search-btn .icon-close {
+            opacity: 0;
+            transform: rotate(-90deg);
+        }
+
+        /* This is the magic! When the container has the 'active' class... */
+        .search-container.active .search-input {
+            width: 300px;
+            padding-left: 20px;
+            padding-right: 60px;
+        }
+
+        /* UPDATED: Better active state for the button */
+        .search-container.active .search-btn {
+            background-color: #e0e0e0; /* Darker background */
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15); /* More pronounced shadow */
+        }
+
+        /* UPDATED: Icon switch animation */
+        .search-container.active .search-btn .icon-search {
+            opacity: 0;
+            transform: rotate(90deg);
+        }
+
+        .search-container.active .search-btn .icon-close {
+            opacity: 1;
+            transform: rotate(0deg);
+        }
+    </style>
+    <!-- Google Font for better typography -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <div class="search-container" id="searchContainer">
+        <input type="text" class="search-input" id="searchInput" placeholder="Search...">
+        <button class="search-btn" id="searchBtn">
+            <!-- UPDATED: Added two icons for the animation -->
+            <svg class="icon icon-search" viewBox="0 0 512 512">
+                <path d="M416 208c0 45.9-14.9 88.3-40 122.7L502.6 457.4c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L330.7 376c-34.4 25.2-76.8 40-122.7 40C93.1 416 0 322.9 0 208S93.1 0 208 0S416 93.1 416 208zM208 352a144 144 0 1 0 0-288 144 144 0 1 0 0 288z"/>
+            </svg>
+            <svg class="icon icon-close" viewBox="0 0 320 512">
+                <path d="M310.6 150.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L160 210.7 54.6 105.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L114.7 256 9.4 361.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L160 301.3 265.4 406.6c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L205.3 256 310.6 150.6z"/>
+            </svg>
+        </button>
+    </div>
+
+    <script>
+        // The JavaScript logic remains exactly the same
+        const searchContainer = document.getElementById('searchContainer');
+        const searchBtn = document.getElementById('searchBtn');
+        const searchInput = document.getElementById('searchInput');
+
+        searchBtn.addEventListener('click', () => {
+            searchContainer.classList.toggle('active');
+
+            if (searchContainer.classList.contains('active')) {
+                searchInput.focus();
+            }
+        });
+
+        searchInput.addEventListener('blur', () => {
+            if (searchInput.value.length === 0) {
+                searchContainer.classList.remove('active');
+            }
+        });
+
+    </script>
+
+</body>
+</html>
