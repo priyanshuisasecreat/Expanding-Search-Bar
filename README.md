@@ -1,4 +1,4 @@
-Here is a polished README.md file for your Static Website project:
+Here is a polished README.md file for your Static Website project....
 
 **🚀 Project Title & Tagline**
 Expanding Search Bar: A Simple yet Effective Search Interface 💡
